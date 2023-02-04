@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,19 +35,27 @@ public class GameStateComponent : MonoBehaviour
 
     CameraFollowComponent mainCameraFollow;
 
-    public State currentState;
-    public State CurrentState { get {return currentState; }}
+    public uint currentState = (uint)State.JOIN_ROOM;
+    public uint CurrentState { get {return currentState; }}
 
     List<GameObject> currentLayer;
 
     public GameObject countdownText;
     public Canvas waitingRoomCanvas;
     public GameObject joinRoomUI;
+
+    public byte[] dummyArray;
+
+
     void Start()
     {
-        currentState = State.JOIN_ROOM;
+        currentState = (uint)State.JOIN_ROOM;
         waitingRoomCanvas.enabled = false;
 
+        int[] intArray = {1,2,3,4};
+
+        dummyArray = new byte[intArray.Length * sizeof(int)];
+        Buffer.BlockCopy(intArray, 0, dummyArray, 0, dummyArray.Length);
 
         //public
         // var countdownText = GetComponent<Canvas>().GetComponent("CountdownText"); // as HingeJoint;
@@ -66,18 +75,27 @@ public class GameStateComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (currentState == State.PLAYING)
-        // {
-        //     PlayLoop();
-        //     return;
-        // }
+        if (currentState == (uint)State.PLAYING)
+        {
+            // PlayLoop();
+
+            Debug.Log(dummyArray);
+
+            int[] intArray = new int[dummyArray.Length * sizeof(byte)];
+
+            Buffer.BlockCopy( dummyArray, 0, intArray, 0, intArray.Length);
+
+            Debug.Log(graphGenerator.layersAsGameObject.GetComponent<RouterGraph>().layers.Count);
+
+            return;
+        }
 
         // if (CurrentState == State.JOIN_ROOM)
         // {
 
         // }
 
-        if (CurrentState == State.WAITING_ROOM)
+        if (CurrentState == (uint)State.WAITING_ROOM)
         {
             WaitingRoomLoop();
             return;
@@ -88,11 +106,11 @@ public class GameStateComponent : MonoBehaviour
     // {
     // }
     static public float maxWaitingSec = 60 * 3;
-    private float waitingTimeRemaining = maxWaitingSec;
+    public float waitingTimeRemaining = maxWaitingSec;
     private void WaitingRoomLoop()
     {
         // keep collecting players and assign numbers and colors and stuff
-        if (waitingTimeRemaining > 0 && currentState == State.WAITING_ROOM)
+        if (waitingTimeRemaining > 0 && currentState == (uint)State.WAITING_ROOM)
         {
             waitingTimeRemaining -= Time.deltaTime;
             DisplayTime(waitingTimeRemaining);
@@ -100,7 +118,7 @@ public class GameStateComponent : MonoBehaviour
             return;
         }
 
-        if (currentState == State.WAITING_ROOM)
+        if (currentState == (uint)State.WAITING_ROOM)
         {
             StartPlaying();
         }
@@ -150,18 +168,19 @@ public class GameStateComponent : MonoBehaviour
     public void OnJoinRoom()
     {
         waitingRoomCanvas.enabled = true;
-        currentState = State.WAITING_ROOM;
+        currentState = (uint)State.WAITING_ROOM;
     }
     public void StartPlaying()
     {
         // TODO hanlde "Play!" button signal
-        if (currentState == State.PLAYING) {
+        if (currentState == (uint)State.PLAYING) {
+            waitingTimeRemaining = -1;
             Debug.LogWarning("already playing!");
         }
 
         Debug.Log("Start Playing!!!");
 
-        currentState = State.PLAYING;
+        currentState = (uint)State.PLAYING;
 
         waitingRoomCanvas.enabled = false;
 

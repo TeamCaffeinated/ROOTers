@@ -16,7 +16,7 @@ namespace Coherence.Generated
 
 	public class Definition : IDefinition
 	{
-		public const string schemaId = "05235c9736070e2e37682b0c5c65c7e0096458bf";
+		public const string schemaId = "080bbaaf6c8910cf16c712b38181b9784914a516";
 		public const uint InternalWorldPosition = 0;
 		public const uint InternalWorldOrientation = 1;
 		public const uint InternalLocalUser = 2;
@@ -121,12 +121,16 @@ namespace Coherence.Generated
 		public const uint InternalGenericFieldColor1 = 101;
 		public const uint InternalContainer_DummyRotate__4070835482919991762 = 102;
 		public const uint InternalContainer_RandomColourSetter_8707848426183972558 = 103;
-		public const uint InternalArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0 = 104;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0 = 105;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0 = 106;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0 = 107;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0 = 108;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0 = 109;
+		public const uint InternalGameStateHandler_GameStateComponent_2155129602599516921 = 104;
+		public const uint InternalGameStateHandler_GraphGeneratorScript_2155129602599516902 = 105;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0 = 106;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0 = 107;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0 = 108;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0 = 109;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0 = 110;
+		public const uint InternalArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_WorldPosition_LOD0 = 111;
+		public const uint InternalArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GameStateComponent_2155129602599516921_LOD0 = 112;
+		public const uint InternalArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GraphGeneratorScript_2155129602599516902_LOD0 = 113;
 		public const uint InternalAuthorityRequest = 0;
 		public const uint InternalAuthorityTransfer = 1;
 		public const uint InternalQuerySynced = 2;
@@ -239,12 +243,16 @@ namespace Coherence.Generated
 			{ 101, "GenericFieldColor1" },
 			{ 102, "Container_DummyRotate__4070835482919991762" },
 			{ 103, "Container_RandomColourSetter_8707848426183972558" },
-			{ 104, "ArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0" },
-			{ 105, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0" },
-			{ 106, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0" },
-			{ 107, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0" },
-			{ 108, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0" },
-			{ 109, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0" },
+			{ 104, "GameStateHandler_GameStateComponent_2155129602599516921" },
+			{ 105, "GameStateHandler_GraphGeneratorScript_2155129602599516902" },
+			{ 106, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0" },
+			{ 107, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0" },
+			{ 108, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0" },
+			{ 109, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0" },
+			{ 110, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0" },
+			{ 111, "ArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_WorldPosition_LOD0" },
+			{ 112, "ArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GameStateComponent_2155129602599516921_LOD0" },
+			{ 113, "ArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GraphGeneratorScript_2155129602599516902_LOD0" },
 		};
 
 		public static string ComponentNameForTypeId(uint typeId)
@@ -474,8 +482,10 @@ namespace Coherence.Generated
 					return Container_DummyRotate__4070835482919991762.Deserialize(inProtocolStream);
 				case InternalContainer_RandomColourSetter_8707848426183972558:
 					return Container_RandomColourSetter_8707848426183972558.Deserialize(inProtocolStream);
-				case InternalArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0:
-					return WorldPosition.DeserializeArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0(inProtocolStream);
+				case InternalGameStateHandler_GameStateComponent_2155129602599516921:
+					return GameStateHandler_GameStateComponent_2155129602599516921.Deserialize(inProtocolStream);
+				case InternalGameStateHandler_GraphGeneratorScript_2155129602599516902:
+					return GameStateHandler_GraphGeneratorScript_2155129602599516902.Deserialize(inProtocolStream);
 				case InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0:
 					return WorldPosition.DeserializeArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0(inProtocolStream);
 				case InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0:
@@ -486,6 +496,12 @@ namespace Coherence.Generated
 					return Container_DummyRotate__4070835482919991762.DeserializeArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0(inProtocolStream);
 				case InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0:
 					return Container_RandomColourSetter_8707848426183972558.DeserializeArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0(inProtocolStream);
+				case InternalArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_WorldPosition_LOD0:
+					return WorldPosition.DeserializeArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_WorldPosition_LOD0(inProtocolStream);
+				case InternalArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GameStateComponent_2155129602599516921_LOD0:
+					return GameStateHandler_GameStateComponent_2155129602599516921.DeserializeArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GameStateComponent_2155129602599516921_LOD0(inProtocolStream);
+				case InternalArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GraphGeneratorScript_2155129602599516902_LOD0:
+					return GameStateHandler_GraphGeneratorScript_2155129602599516902.DeserializeArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GraphGeneratorScript_2155129602599516902_LOD0(inProtocolStream);
 				default:
 					return (null, 0, 0);
 			}
@@ -807,6 +823,12 @@ namespace Coherence.Generated
 					break;
 				case InternalContainer_RandomColourSetter_8707848426183972558:
 					Container_RandomColourSetter_8707848426183972558.Serialize((Container_RandomColourSetter_8707848426183972558)data, mask, protocolStream);
+					break;
+				case InternalGameStateHandler_GameStateComponent_2155129602599516921:
+					GameStateHandler_GameStateComponent_2155129602599516921.Serialize((GameStateHandler_GameStateComponent_2155129602599516921)data, mask, protocolStream);
+					break;
+				case InternalGameStateHandler_GraphGeneratorScript_2155129602599516902:
+					GameStateHandler_GraphGeneratorScript_2155129602599516902.Serialize((GameStateHandler_GraphGeneratorScript_2155129602599516902)data, mask, protocolStream);
 					break;
 			}
 		}

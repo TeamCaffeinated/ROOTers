@@ -4,6 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class RouterGraph : MonoBehaviour
+{
+    public List<List<GameObject>> layers;
+}
+
 
 public class GraphGeneratorScript : MonoBehaviour
 {
@@ -96,13 +101,14 @@ public class GraphGeneratorScript : MonoBehaviour
         }
     }
 
-    List<List<GameObject>> layers;
+    public List<List<GameObject>> layers;
 
     void Start()
     {
         // generateInitialLayers();
     }
 
+    public GameObject layersAsGameObject;
     public void generateInitialLayers()
     {
         layers = new List<List<GameObject>>();
@@ -132,6 +138,11 @@ public class GraphGeneratorScript : MonoBehaviour
             layers.Add(layer);
             x += xSpaceRouters;
         }
+
+        layersAsGameObject =  new GameObject();
+        RouterGraph rg = layersAsGameObject.AddComponent<RouterGraph>();
+        rg.layers = layers;
+
     }
 
     // Update is called once per frame

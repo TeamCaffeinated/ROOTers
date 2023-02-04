@@ -15,16 +15,16 @@ namespace Coherence.Generated
 	using Coherence.Toolkit;
 	using UnityEngine;
 
-	public struct WorldPosition : ICoherenceComponentData
+	public struct GameStateHandler_GraphGeneratorScript_2155129602599516902 : ICoherenceComponentData
 	{
-		public Vector3 value;
+		public SerializeEntityID layersAsGameObject;
 
 		public override string ToString()
 		{
-			return $"WorldPosition(value: {value})";
+			return $"GameStateHandler_GraphGeneratorScript_2155129602599516902(layersAsGameObject: {layersAsGameObject})";
 		}
 
-		public uint GetComponentType() => Definition.InternalWorldPosition;
+		public uint GetComponentType() => Definition.InternalGameStateHandler_GraphGeneratorScript_2155129602599516902;
 
 		public const int order = 0;
 
@@ -42,56 +42,44 @@ namespace Coherence.Generated
 
 		public ICoherenceComponentData MergeWith(ICoherenceComponentData data, uint mask)
 		{
-			var other = (WorldPosition)data;
+			var other = (GameStateHandler_GraphGeneratorScript_2155129602599516902)data;
 			if ((mask & 0x01) != 0)
 			{
 				Frame = other.Frame;
-				value = other.value;
+				layersAsGameObject = other.layersAsGameObject;
 			}
 			mask >>= 1;
 			return this;
 		}
 
-		public static void Serialize(WorldPosition data, uint mask, IOutProtocolBitStream bitStream)
+		public static void Serialize(GameStateHandler_GraphGeneratorScript_2155129602599516902 data, uint mask, IOutProtocolBitStream bitStream)
 		{
 			if (bitStream.WriteMask((mask & 0x01) != 0))
 			{
-				bitStream.WriteVector3((data.value.ToCoreVector3()), FloatMeta.NoCompression());
+				bitStream.WriteEntity(data.layersAsGameObject);
 			}
 			mask >>= 1;
 		}
 
-		public static (WorldPosition, uint, uint?) Deserialize(InProtocolBitStream bitStream)
+		public static (GameStateHandler_GraphGeneratorScript_2155129602599516902, uint, uint?) Deserialize(InProtocolBitStream bitStream)
 		{
 			var mask = (uint)0;
-			var val = new WorldPosition();
+			var val = new GameStateHandler_GraphGeneratorScript_2155129602599516902();
 	
 			if (bitStream.ReadMask())
 			{
-				val.value = (bitStream.ReadVector3(FloatMeta.NoCompression())).ToUnityVector3();
+				val.layersAsGameObject = bitStream.ReadEntity();
 				mask |= 0b00000000000000000000000000000001;
 			}
 			return (val, mask, null);
 		}
-		public static (WorldPosition, uint, uint?) DeserializeArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0(InProtocolBitStream bitStream)
+		public static (GameStateHandler_GraphGeneratorScript_2155129602599516902, uint, uint?) DeserializeArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_GameStateHandler_GraphGeneratorScript_2155129602599516902_LOD0(InProtocolBitStream bitStream)
 		{
 			var mask = (uint)0;
-			var val = new WorldPosition();
+			var val = new GameStateHandler_GraphGeneratorScript_2155129602599516902();
 			if (bitStream.ReadMask())
 			{
-				val.value = (bitStream.ReadVector3(FloatMeta.NoCompression())).ToUnityVector3();
-				mask |= 0b00000000000000000000000000000001;
-			}
-
-			return (val, mask, 0);
-		}
-		public static (WorldPosition, uint, uint?) DeserializeArchetypeGameStateHandler_ec2ebf1be19db254da1ba90b22940b35_WorldPosition_LOD0(InProtocolBitStream bitStream)
-		{
-			var mask = (uint)0;
-			var val = new WorldPosition();
-			if (bitStream.ReadMask())
-			{
-				val.value = (bitStream.ReadVector3(FloatMeta.NoCompression())).ToUnityVector3();
+				val.layersAsGameObject = bitStream.ReadEntity();
 				mask |= 0b00000000000000000000000000000001;
 			}
 
@@ -107,7 +95,7 @@ namespace Coherence.Generated
 		/// </summary>
 		public void ResetByteArrays(ICoherenceComponentData lastSent, uint mask)
 		{
-			var last = lastSent as WorldPosition?;
+			var last = lastSent as GameStateHandler_GraphGeneratorScript_2155129602599516902?;
 	
 		}
 	}
