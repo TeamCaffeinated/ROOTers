@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerControllerComponent : MonoBehaviour
 {
+    private int playerNumber;
     private RouterComponent currentRouter;
     void Start()
     {
