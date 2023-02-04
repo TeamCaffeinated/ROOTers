@@ -9,6 +9,8 @@ public class GameStateComponent : MonoBehaviour
 
     public GameObject currentRouter;
 
+    CameraFollowComponent mainCameraFollow;
+
     List<GameObject> currentLayer;
     void Start()
     {
@@ -19,6 +21,12 @@ public class GameStateComponent : MonoBehaviour
 
         playerControllerComponent.SetStartRouter(currentRouter.GetComponent<RouterComponent>());
         Debug.Log("current router " + currentRouter.name);
+
+        mainCameraFollow = Camera.main.GetComponent<CameraFollowComponent>();
+        if (mainCameraFollow != null)
+        {
+            mainCameraFollow.Follow(currentRouter.transform.position);
+        }
     }
 
     // Update is called once per frame

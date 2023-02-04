@@ -33,6 +33,7 @@ public class PlayerControllerComponent : MonoBehaviour
             currentRouter = rc;
             currentRouter.PlayerMovedIn();
 
+            GameEventsHandler.current.MoveToNextRouter(rc.transform.position);
         } else {
             s += "CAN'T";
         }

@@ -49,6 +49,11 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
 
     void OnMouseDown()
     {
+        RespondToInteraction();
+    }
+
+    private void RespondToInteraction()
+    {
         Debug.Log("clicked on " + name);
         particleSystem.Play();
         if (GameEventsHandler.current == null)
