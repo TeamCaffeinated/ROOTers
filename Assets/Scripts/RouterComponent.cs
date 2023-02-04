@@ -5,19 +5,23 @@ using UnityEngine;
 public class RouterComponent : MonoBehaviour
 {
     // public int x,y;
-    // List<Router> adj_out;
+    public GameObject routerPrefab;
 
+    List<GameObject> adjOut = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // x = Random.Range(0,10);
-        // y = Random.Range(0,10);
+    public List<GameObject> getOutgoing() {
+        return adjOut;
     }
 
+    public void addLink(GameObject adjRouter) {
+        adjOut.Add(adjRouter);
+    }
 
+    void Start()
+    {
+        
+    }
 
-    // Update is called once per frame
     void Update()
     {
         
