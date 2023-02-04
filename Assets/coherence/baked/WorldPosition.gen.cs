@@ -73,6 +73,18 @@ namespace Coherence.Generated
 			}
 			return (val, mask, null);
 		}
+		public static (WorldPosition, uint, uint?) DeserializeArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0(InProtocolBitStream bitStream)
+		{
+			var mask = (uint)0;
+			var val = new WorldPosition();
+			if (bitStream.ReadMask())
+			{
+				val.value = (bitStream.ReadVector3(FloatMeta.NoCompression())).ToUnityVector3();
+				mask |= 0b00000000000000000000000000000001;
+			}
+
+			return (val, mask, 0);
+		}
 		public static (WorldPosition, uint, uint?) DeserializeArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0(InProtocolBitStream bitStream)
 		{
 			var mask = (uint)0;

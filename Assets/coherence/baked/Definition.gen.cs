@@ -16,7 +16,7 @@ namespace Coherence.Generated
 
 	public class Definition : IDefinition
 	{
-		public const string schemaId = "927d6c4a42ad12c3b7eeb3d392a304c369c9b58a";
+		public const string schemaId = "05235c9736070e2e37682b0c5c65c7e0096458bf";
 		public const uint InternalWorldPosition = 0;
 		public const uint InternalWorldOrientation = 1;
 		public const uint InternalLocalUser = 2;
@@ -121,11 +121,12 @@ namespace Coherence.Generated
 		public const uint InternalGenericFieldColor1 = 101;
 		public const uint InternalContainer_DummyRotate__4070835482919991762 = 102;
 		public const uint InternalContainer_RandomColourSetter_8707848426183972558 = 103;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0 = 104;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0 = 105;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0 = 106;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0 = 107;
-		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0 = 108;
+		public const uint InternalArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0 = 104;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0 = 105;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0 = 106;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0 = 107;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0 = 108;
+		public const uint InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0 = 109;
 		public const uint InternalAuthorityRequest = 0;
 		public const uint InternalAuthorityTransfer = 1;
 		public const uint InternalQuerySynced = 2;
@@ -238,11 +239,12 @@ namespace Coherence.Generated
 			{ 101, "GenericFieldColor1" },
 			{ 102, "Container_DummyRotate__4070835482919991762" },
 			{ 103, "Container_RandomColourSetter_8707848426183972558" },
-			{ 104, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0" },
-			{ 105, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0" },
-			{ 106, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0" },
-			{ 107, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0" },
-			{ 108, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0" },
+			{ 104, "ArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0" },
+			{ 105, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0" },
+			{ 106, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0" },
+			{ 107, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_GenericScale_LOD0" },
+			{ 108, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_DummyRotate__4070835482919991762_LOD0" },
+			{ 109, "ArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_Container_RandomColourSetter_8707848426183972558_LOD0" },
 		};
 
 		public static string ComponentNameForTypeId(uint typeId)
@@ -472,6 +474,8 @@ namespace Coherence.Generated
 					return Container_DummyRotate__4070835482919991762.Deserialize(inProtocolStream);
 				case InternalContainer_RandomColourSetter_8707848426183972558:
 					return Container_RandomColourSetter_8707848426183972558.Deserialize(inProtocolStream);
+				case InternalArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0:
+					return WorldPosition.DeserializeArchetypeGameState_ba29fb2e6dd3cbc45bd29f3367ed30ad_WorldPosition_LOD0(inProtocolStream);
 				case InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0:
 					return WorldPosition.DeserializeArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldPosition_LOD0(inProtocolStream);
 				case InternalArchetypeContainer_11cb97191c21e4e609b0324a7f00b18d_WorldOrientation_LOD0:

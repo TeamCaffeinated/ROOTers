@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Coherence.Connection;
+using Coherence.Toolkit;
 using TMPro;
 
 
-public enum State
+public enum State: uint
 {
     PLAYING,
     WAITING_ROOM,
@@ -13,9 +15,18 @@ public enum State
     //PAUSE
 };
 
+// [System.Serializable]
+// public struct PlayerList
+// {
+//     // public List<int> playerList;
+//     public int playerId;
+// }
+
+
 
 public class GameStateComponent : MonoBehaviour
 {
+    public CoherenceMonoBridge MonoBridge;
     public PlayerControllerComponent playerControllerComponent;
     public GraphGeneratorScript graphGenerator;
 
@@ -23,7 +34,7 @@ public class GameStateComponent : MonoBehaviour
 
     CameraFollowComponent mainCameraFollow;
 
-    private State currentState;
+    public State currentState;
     public State CurrentState { get {return currentState; }}
 
     List<GameObject> currentLayer;
@@ -76,7 +87,7 @@ public class GameStateComponent : MonoBehaviour
     // private void PlayLoop()
     // {
     // }
-    static public float maxWaitingSec = 15;
+    static public float maxWaitingSec = 60 * 3;
     private float waitingTimeRemaining = maxWaitingSec;
     private void WaitingRoomLoop()
     {
@@ -85,6 +96,7 @@ public class GameStateComponent : MonoBehaviour
         {
             waitingTimeRemaining -= Time.deltaTime;
             DisplayTime(waitingTimeRemaining);
+            HandlePlayerJoin();
             return;
         }
 
@@ -92,6 +104,37 @@ public class GameStateComponent : MonoBehaviour
         {
             StartPlaying();
         }
+    }
+
+    private List<ClientID> otherClients;
+    private void HandlePlayerJoin()
+    {
+        // Raised whenever a new connection is made (including the local one).
+        MonoBridge.ClientConnections.OnCreated += connection =>
+        {
+            Debug.Log($"Connection #{connection.ClientId} " +
+                      $"of type {connection.Type} created.");
+
+            if (! connection.IsMyConnection)
+            {
+                otherClients.Add(connection.ClientId);
+            }
+            Debug.Log("All clients until now " + otherClients);
+        };
+
+        // // Raised whenever a connection is destroyed.
+        // MonoBridge.ClientConnections.OnDestroyed += connection =>
+        // {
+        //     Debug.Log($"Connection #{connection.ClientId} " +
+        //               $"of type {connection.Type} destroyed.");
+        // };
+
+        // Raised when all initial connections have been synced.
+        MonoBridge.ClientConnections.OnSynced += connectionManager =>
+        {
+            Debug.Log($"ClientConnections are now ready to be used.");
+        };
+
     }
 
     void DisplayTime(float timeToDisplay)
@@ -128,8 +171,11 @@ public class GameStateComponent : MonoBehaviour
         // Assign randomly one router to this player
         // probably need to change with multyplayer, not random but sorted with player id
         currentLayer = graphGenerator.getLayer(0);
-        currentRouter = currentLayer[Random.Range(0, currentLayer.Count)];
+        // currentRouter = currentLayer[Random.Range(0, currentLayer.Count)];
+        currentRouter = currentLayer[0];
         playerControllerComponent.SetStartRouter(currentRouter.GetComponent<RouterComponent>());
+
+
 
         Debug.Log("current router " + currentRouter.name);
 
