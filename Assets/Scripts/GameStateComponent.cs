@@ -16,10 +16,9 @@ public class GameStateComponent : MonoBehaviour
         currentLayer = graphGenerator.getLayer(0);
 
         currentRouter = currentLayer[Random.Range(0, currentLayer.Count)];
-        currentRouter.GetComponent<RouterComponent>().hasPlayer();
-        // currentRouter.GetComponent<Texture2D>().
+
+        playerControllerComponent.SetStartRouter(currentRouter.GetComponent<RouterComponent>());
         Debug.Log("current router " + currentRouter.name);
-        // currentRouter.
     }
 
     // Update is called once per frame

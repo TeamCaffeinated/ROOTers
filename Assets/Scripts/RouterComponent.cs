@@ -22,33 +22,41 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
         adjOut.Add(adjRouter);
     }
 
-    void Start()
-    {
-        // spriteRenderer = GetComponentInParent<SpriteRenderer>();
-        // particleSystem = GetComponentInParent<ParticleSystem>();
+    public bool CanReach(RouterComponent targetRC) {
+        foreach (GameObject adjR in adjOut)
+        {
+            RouterComponent adjRC = adjR.GetComponent<RouterComponent>();
+            if (adjRC != null && adjRC == targetRC) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    void Update()
-    {
 
-        
-    }
-
-    public void hasPlayer() // TODO change name
+    private bool hasPlayer = false;
+    public bool HasPlayer() { return hasPlayer; } // there should be a nicer way
+    public void PlayerMovedIn()
     {
+        hasPlayer = true;
         spriteRenderer.color = new Color(0,1,1,1);
     }
-
-    // public void OnPointerClick(PointerEventData eventData)
-    void OnMouseDown()
+    public void PlayerMovedOut()
     {
-        // Debug.Log(eventData);
-        // Debug.Log("from router " + GetInstanceID() + "to router " + "TODO");
-        Debug.Log("clicked on " + name);
-        // spriteRenderer.transform.localScale *= 2;
-        particleSystem.Play();
+        hasPlayer = false;
+        spriteRenderer.color = new Color(1,1,1,1);
     }
 
-    // private bool CanReach(another router)
+    void OnMouseDown()
+    {
+        Debug.Log("clicked on " + name);
+        particleSystem.Play();
+        if (GameEventsHandler.current == null)
+        {
+            Debug.Log("dab init");
+            return;
+        }
+        GameEventsHandler.current.NextRouterSelected(this);
+    }
 
 }
