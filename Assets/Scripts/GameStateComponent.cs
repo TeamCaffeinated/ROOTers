@@ -9,6 +9,7 @@ public enum State
 {
     PLAYING,
     WAITING_ROOM,
+    JOIN_ROOM,
     //PAUSE
 };
 
@@ -29,9 +30,13 @@ public class GameStateComponent : MonoBehaviour
 
     public GameObject countdownText;
     public Canvas waitingRoomCanvas;
+    public GameObject joinRoomUI;
     void Start()
     {
-        currentState = State.WAITING_ROOM;
+        currentState = State.JOIN_ROOM;
+        waitingRoomCanvas.enabled = false;
+
+
         //public
         // var countdownText = GetComponent<Canvas>().GetComponent("CountdownText"); // as HingeJoint;
 
@@ -54,6 +59,11 @@ public class GameStateComponent : MonoBehaviour
         // {
         //     PlayLoop();
         //     return;
+        // }
+
+        // if (CurrentState == State.JOIN_ROOM)
+        // {
+
         // }
 
         if (CurrentState == State.WAITING_ROOM)
@@ -94,6 +104,11 @@ public class GameStateComponent : MonoBehaviour
         countdownText.GetComponent<TMP_Text>().text = timestr;
     }
 
+    public void OnJoinRoom()
+    {
+        waitingRoomCanvas.enabled = true;
+        currentState = State.WAITING_ROOM;
+    }
     public void StartPlaying()
     {
         // TODO hanlde "Play!" button signal
