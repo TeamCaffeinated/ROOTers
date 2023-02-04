@@ -24,7 +24,7 @@ public enum State: uint
 
 public class GameStateComponent : MonoBehaviour
 {
-    public PlayerControllerComponent playerControllerComponent;
+    public GameObject playerController;
     public GraphGeneratorScript graphGenerator;
 
     public GameObject currentRouter;
@@ -100,6 +100,7 @@ public class GameStateComponent : MonoBehaviour
         {
             waitingTimeRemaining -= Time.deltaTime;
             DisplayTime(waitingTimeRemaining);
+            CheckIfPlayerJoin();
             return;
         }
 
@@ -109,6 +110,10 @@ public class GameStateComponent : MonoBehaviour
         }
     }
 
+    void CheckIfPlayerJoin()
+    {
+        // TODO
+    }
 
     void DisplayTime(float timeToDisplay)
     {
@@ -147,9 +152,7 @@ public class GameStateComponent : MonoBehaviour
         currentLayer = graphGenerator.getLayer(0);
         // currentRouter = currentLayer[Random.Range(0, currentLayer.Count)];
         currentRouter = currentLayer[0];
-        playerControllerComponent.SetStartRouter(currentRouter.GetComponent<RouterComponent>());
-
-
+        playerController.GetComponent<PlayerControllerComponent>().SetStartRouter(currentRouter.GetComponent<RouterComponent>());
 
         Debug.Log("current router " + currentRouter.name);
 
@@ -160,9 +163,5 @@ public class GameStateComponent : MonoBehaviour
         }
 
     }
-
-
-
-
 
 }
