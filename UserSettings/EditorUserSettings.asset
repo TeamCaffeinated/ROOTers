@@ -23,6 +23,9 @@ EditorUserSettings:
     Coherence.Package.LastInstallation:
       value: 531f05564b0d
       flags: 0
+    Coherence.Settings.ActiveSchemas.Hash:
+      value: 05570404500c51035d595f2615210a1345414e72782e20337c781b66bbb86d69
+      flags: 0
     Coherence.Settings.Email:
       value: 0a5d59070b460655040d2c231235111211
       flags: 0

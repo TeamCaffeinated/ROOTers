@@ -218,6 +218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameState
       objectReference: {fileID: 0}
+    - target: {fileID: 5037228623344367154, guid: ba29fb2e6dd3cbc45bd29f3367ed30ad, type: 3}
+      propertyPath: linkWidth
+      value: 0.33
+      objectReference: {fileID: 0}
     - target: {fileID: 5037228623344367155, guid: ba29fb2e6dd3cbc45bd29f3367ed30ad, type: 3}
       propertyPath: m_RootOrder
       value: 1
