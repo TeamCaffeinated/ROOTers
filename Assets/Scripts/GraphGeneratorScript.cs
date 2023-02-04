@@ -25,6 +25,7 @@ public class GraphGeneratorScript : MonoBehaviour
         float y = minY, stepY = (maxY - minY) / (numRouters - 1);
         for(int i = 0; i < numRouters; i++) {
             GameObject router = Instantiate(routerPrefab, new Vector3(x, y, 0), Quaternion.identity);
+            router.name = "x" + x + " y" + y;
             layer.Add(router);
             y += stepY;
         }
@@ -67,13 +68,14 @@ public class GraphGeneratorScript : MonoBehaviour
         }
     }
 
+    public float linkWidth = 0.02f;
     void renderSingleLink(Vector3 posFrom, Vector3 posTo) {
         //For creating line renderer object
         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.startColor = Color.black;
         lineRenderer.endColor = Color.black;
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
+        lineRenderer.startWidth = linkWidth;
+        lineRenderer.endWidth   = linkWidth;
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = true;    
                         
@@ -98,6 +100,11 @@ public class GraphGeneratorScript : MonoBehaviour
 
     void Start()
     {
+        // generateInitialLayers();
+    }
+
+    public void generateInitialLayers()
+    {
         layers = new List<List<GameObject>>();
 
         float x = 0;
@@ -117,6 +124,11 @@ public class GraphGeneratorScript : MonoBehaviour
                 renderLinks(layers.Last());
             }
 
+            foreach (var r in layer)
+            {
+                r.name = "Router L" + i + " " + r.name;
+            }
+
             layers.Add(layer);
             x += xSpaceRouters;
         }
@@ -126,5 +138,11 @@ public class GraphGeneratorScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public List<GameObject> getLayer(int i)
+    {
+        // TODO check index is valid
+        return layers[i];
     }
 }
