@@ -28,7 +28,7 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
 
             // val = Math.Min(val, 0.9f);
 
-            Debug.Log(val + " " + bloopAnimationRemainingTime);
+            // Debug.Log(val + " " + bloopAnimationRemainingTime);
 
             transform.localScale = new Vector3(val,val,1);
 
@@ -86,7 +86,7 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
         // particleSystem.Play();
         if (GameEventsHandler.current == null)
         {
-            Debug.Log("dab init");
+            Debug.Log("bad init");
             return;
         }
         GameEventsHandler.current.NextRouterSelected(this);

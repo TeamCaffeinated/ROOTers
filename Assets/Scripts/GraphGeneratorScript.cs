@@ -68,20 +68,13 @@ public class GraphGeneratorScript : MonoBehaviour
         }
     }
 
-    public float linkWidth = 0.02f;
+    // public float linkWidth = 0.02f;
     void renderSingleLink(Vector3 posFrom, Vector3 posTo) {
-        //For creating line renderer object
-        LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-        lineRenderer.startColor = Color.black;
-        lineRenderer.endColor = Color.black;
-        lineRenderer.startWidth = linkWidth;
-        lineRenderer.endWidth   = linkWidth;
-        lineRenderer.positionCount = 2;
-        lineRenderer.useWorldSpace = true;    
                         
         // Set points
-        lineRenderer.SetPosition(0, posFrom); 
-        lineRenderer.SetPosition(1, posTo);
+        lineRenderer.positionCount += 2;
+        lineRenderer.SetPosition(lineRenderer.positionCount - 2, posFrom); 
+        lineRenderer.SetPosition(lineRenderer.positionCount - 1, posTo);
     }
 
     void renderLinks(List<GameObject> layer) {
@@ -98,9 +91,11 @@ public class GraphGeneratorScript : MonoBehaviour
 
     List<List<GameObject>> layers;
 
+    public LineRenderer lineRenderer;
     void Start()
     {
         // generateInitialLayers();
+        lineRenderer.positionCount = 0;
     }
 
     public void generateInitialLayers()

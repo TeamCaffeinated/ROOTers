@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Coherence.Connection;
-using Coherence.Toolkit;
 using TMPro;
 
 
@@ -26,7 +24,6 @@ public enum State: uint
 
 public class GameStateComponent : MonoBehaviour
 {
-    public CoherenceMonoBridge MonoBridge;
     public PlayerControllerComponent playerControllerComponent;
     public GraphGeneratorScript graphGenerator;
 
@@ -41,11 +38,12 @@ public class GameStateComponent : MonoBehaviour
 
     public GameObject countdownText;
     public Canvas waitingRoomCanvas;
-    public GameObject joinRoomUI;
     void Start()
     {
         currentState = State.JOIN_ROOM;
         waitingRoomCanvas.enabled = false;
+
+        OnJoinRoom();
 
 
         //public
@@ -77,6 +75,12 @@ public class GameStateComponent : MonoBehaviour
 
         // }
 
+        if (Input.GetButton("Submit"))
+        {
+            StartPlaying();
+        }
+
+
         if (CurrentState == State.WAITING_ROOM)
         {
             WaitingRoomLoop();
@@ -96,46 +100,15 @@ public class GameStateComponent : MonoBehaviour
         {
             waitingTimeRemaining -= Time.deltaTime;
             DisplayTime(waitingTimeRemaining);
-            HandlePlayerJoin();
             return;
         }
 
-        if (currentState == State.WAITING_ROOM)
+        if (waitingTimeRemaining <= 0 && currentState == State.WAITING_ROOM)
         {
             StartPlaying();
         }
     }
 
-    private List<ClientID> otherClients;
-    private void HandlePlayerJoin()
-    {
-        // Raised whenever a new connection is made (including the local one).
-        MonoBridge.ClientConnections.OnCreated += connection =>
-        {
-            Debug.Log($"Connection #{connection.ClientId} " +
-                      $"of type {connection.Type} created.");
-
-            if (! connection.IsMyConnection)
-            {
-                otherClients.Add(connection.ClientId);
-            }
-            Debug.Log("All clients until now " + otherClients);
-        };
-
-        // // Raised whenever a connection is destroyed.
-        // MonoBridge.ClientConnections.OnDestroyed += connection =>
-        // {
-        //     Debug.Log($"Connection #{connection.ClientId} " +
-        //               $"of type {connection.Type} destroyed.");
-        // };
-
-        // Raised when all initial connections have been synced.
-        MonoBridge.ClientConnections.OnSynced += connectionManager =>
-        {
-            Debug.Log($"ClientConnections are now ready to be used.");
-        };
-
-    }
 
     void DisplayTime(float timeToDisplay)
     {
@@ -143,7 +116,7 @@ public class GameStateComponent : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60); 
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         string timestr = string.Format("{0:00}:{1:00}", minutes, seconds);
-        Debug.Log(timestr);
+        // Debug.Log(timestr);
         countdownText.GetComponent<TMP_Text>().text = timestr;
     }
 
@@ -157,6 +130,7 @@ public class GameStateComponent : MonoBehaviour
         // TODO hanlde "Play!" button signal
         if (currentState == State.PLAYING) {
             Debug.LogWarning("already playing!");
+            return;
         }
 
         Debug.Log("Start Playing!!!");
