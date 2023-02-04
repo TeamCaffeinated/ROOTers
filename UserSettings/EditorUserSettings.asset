@@ -5,8 +5,38 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 4
   m_ConfigSettings:
+    Coherence.BakeOnBuild:
+      value: 53
+      flags: 0
+    Coherence.BakeOnEnterPlayMode:
+      value: 53
+      flags: 0
+    Coherence.CodeGen.LastInstallation:
+      value: 15011a52561b59
+      flags: 0
+    Coherence.CoherenceSyncSchemasDirty:
+      value: 53
+      flags: 0
+    Coherence.GatherOnBake:
+      value: 52
+      flags: 0
+    Coherence.Package.LastInstallation:
+      value: 531f05564b0d
+      flags: 0
+    Coherence.Settings.Email:
+      value: 0a5d59070b460655040d2c231235111211
+      flags: 0
+    Coherence.Settings.UserID:
+      value: 0057510b015d0559025f04321d224d124e4f1d2d
+      flags: 0
+    Coherence.Settings.UserLoginEncryptedToken:
+      value: 0a7f7125355d23503e0d3b073b076c3345103a7c2f7c02310e08383fd7d66732e0cf07cbc22e100b342ca424286a2c2da0581b33f838203d451bc7562bc6170415cb2fe02ff9311d92083bc2db2c9acde3f3d0c893baccdd88f9aea5c3c6c4d6e3d08bed9285caf3aefbae809cf8c3e7d3f0a2e8e0d3ddc9ecc7d6c4ab8ac6dcf0c59182dc93cf94cda1b3a7b6a1f4b791afa9c28cf38ba9c89a93b37189ff4533375d9d8a8d8786908063977375d6905323a36b388888dd86a67da1bbbcb28213c28ba253abc8af57b71c926879364d546d6d017a693231
+      flags: 0
     RecentlyUsedSceneGuid-0:
       value: 515250075c0c595e5f5a5e71122159444e4e4a2f7a7d7f602f284d66b4b76661
+      flags: 0
+    RecentlyUsedSceneGuid-1:
+      value: 5b50565152030d0e5a5f5b21427759424f16407d292b23352e7d4430e3e53560
       flags: 0
     vcSharedLogLevel:
       value: 0d5e400f0650

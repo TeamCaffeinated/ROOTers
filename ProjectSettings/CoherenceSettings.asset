@@ -27,7 +27,7 @@ MonoBehaviour:
   sendFrequency: 20
   recvFrequency: 60
   bakeMode: 0
-  schemaBakeFolderGuid: 
+  schemaBakeFolderGuid: 015130b9ecd9d48b1a977ccda4e1ead2
   runtimeSettingsGuid: 02ce0ce9bd431470fbe7b1f10c7fb61d
   prefabMapperGuid: e4b13bef80ae244c0b94d7f51ace766c
   schemaBakeGenerateAsmdef: 0
