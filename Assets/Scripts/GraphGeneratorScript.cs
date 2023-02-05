@@ -92,8 +92,8 @@ public class GraphGeneratorScript : MonoBehaviour
         lineObject.transform.parent = transform;
 
         var currRenderer = lineObject.GetComponent<LineRenderer>();
-        currRenderer.startWidth = 0.5f;
-        currRenderer.endWidth = 0.5f;
+        currRenderer.startWidth = 0.1f;
+        currRenderer.endWidth = 0.1f;
         currRenderer.SetPositions(new Vector3[]{
             posFrom,
             posTo,
