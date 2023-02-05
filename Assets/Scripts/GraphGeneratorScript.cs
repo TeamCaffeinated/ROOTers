@@ -73,6 +73,8 @@ public class GraphGeneratorScript : MonoBehaviour
                     randomChoice.RemoveRange(degree, randomChoice.Count - degree);
                 }
 
+                randomChoice.Sort((x, y) => x.transform.position.y < y.transform.position.y ?  1 : -1);
+
                 foreach(var routerTo in randomChoice) {
                     addSingleLink(routerFrom, routerTo);
                 }
