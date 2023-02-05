@@ -8,12 +8,24 @@ using UnityEngine;
 public class PlayerControllerComponent : MonoBehaviour
 {
     private int playerNumber;
+    public int PlayerNumber{ get {return playerNumber;} }
     private RouterComponent currentRouter;
 
     // public LineRenderer lineRenderer;
 
+    static int playerCount = 0;
+    static public void IncreasePlayerCount() { playerCount++; }
+    // PlayerControllerComponent()
+    // {
+    //     IncreasePlayerCount();
+    //     playerNumber = playerCount;
+    // }
+
     void Start()
     {
+        IncreasePlayerCount();
+        playerNumber = playerCount;
+        Debug.Log("player count = " + playerCount + "playerNum = " + playerNumber);
         GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
 
         // lineRenderer = GetComponent<LineRenderer>();
@@ -49,14 +61,14 @@ public class PlayerControllerComponent : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit_P" + playerNumber))
         {
-            GameEventsHandler.current.NextRouterSelected(putativeNextRouter);
+            GameEventsHandler.current.NextRouterSelected(playerNumber, putativeNextRouter);
             return;
         }
 
-        float vertical = Input.GetAxis("Vertical");
-        Debug.Log("got vertical " + vertical);
+        float vertical = Input.GetAxis("Vertical_P" + playerNumber);
+        Debug.Log("got vertical_P" + playerNumber + " " + vertical);
         if (vertical > 0)
         {
             putativeNextRouterIndex = (int)Mathf.Min(putativeNextRouterIndex+1, currentRouter.getOutgoing().Count-1);
@@ -102,8 +114,14 @@ public class PlayerControllerComponent : MonoBehaviour
         rc.PlayerMovedIn();
     }
 
-    private void OnNextRouterSelected(RouterComponent rc)
+    private void OnNextRouterSelected(int pNum, RouterComponent rc)
     {
+        if (pNum != playerNumber)
+        {
+            return;
+        }
+
+
         string s = "from " + currentRouter.name + " to " + rc.name;
         if (currentRouter.CanReach(rc)) {
             s += "CAN";
@@ -113,6 +131,7 @@ public class PlayerControllerComponent : MonoBehaviour
             putativeNextRouterIndex = 0;
             putativeNextRouter = null;
 
+            // GameEventsHandler.current.MoveToNextRouter(playerNumber, rc.transform.position);
             GameEventsHandler.current.MoveToNextRouter(rc.transform.position);
         } else {
             s += "CAN'T";

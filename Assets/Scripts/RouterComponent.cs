@@ -77,22 +77,22 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
 
     void OnMouseDown()
     {
-        RespondToInteraction();
+        // RespondToInteraction();
     }
 
-    private void RespondToInteraction()
-    {
-        Debug.Log("clicked on " + name);
-        // particleSystem.Play();
-        if (GameEventsHandler.current == null)
-        {
-            Debug.Log("bad init");
-            return;
-        }
-        GameEventsHandler.current.NextRouterSelected(this);
+    // private void RespondToInteraction()
+    // {
+    //     Debug.Log("clicked on " + name);
+    //     // particleSystem.Play();
+    //     if (GameEventsHandler.current == null)
+    //     {
+    //         Debug.Log("bad init");
+    //         return;
+    //     }
+    //     GameEventsHandler.current.NextRouterSelected(player, this);
 
-        StartBloopAnimation();
-    }
+    //     StartBloopAnimation();
+    // }
 
     public float maxBloopAnimationRemainingTime = 0.0001f;
     private float bloopAnimationRemainingTime = 0.0f;

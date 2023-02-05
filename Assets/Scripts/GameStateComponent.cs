@@ -24,10 +24,8 @@ public enum State: uint
 
 public class GameStateComponent : MonoBehaviour
 {
-    public GameObject playerController;
+    public GameObject playerControllerPrefab;
     public GraphGeneratorScript graphGenerator;
-
-    public GameObject currentRouter;
 
     CameraFollowComponent mainCameraFollow;
 
@@ -38,10 +36,15 @@ public class GameStateComponent : MonoBehaviour
 
     public GameObject countdownText;
     public Canvas waitingRoomCanvas;
+    private List<GameObject> playerControllersList;
+
     void Start()
     {
         currentState = State.JOIN_ROOM;
         waitingRoomCanvas.enabled = false;
+
+        playerControllersList = new List<GameObject>();
+
 
         OnJoinRoom();
 
@@ -109,10 +112,18 @@ public class GameStateComponent : MonoBehaviour
             StartPlaying();
         }
     }
-
     void CheckIfPlayerJoin()
     {
-        // TODO
+        if (playerControllersList.Count >= 2)
+        {
+            return;
+        }
+
+        playerControllersList.Add(
+            Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity)
+        );
+
+        // TODO properly
     }
 
     void DisplayTime(float timeToDisplay)
@@ -151,16 +162,34 @@ public class GameStateComponent : MonoBehaviour
         // probably need to change with multyplayer, not random but sorted with player id
         currentLayer = graphGenerator.getLayer(0);
         // currentRouter = currentLayer[Random.Range(0, currentLayer.Count)];
-        currentRouter = currentLayer[0];
-        playerController.GetComponent<PlayerControllerComponent>().SetStartRouter(currentRouter.GetComponent<RouterComponent>());
 
-        Debug.Log("current router " + currentRouter.name);
-
-        mainCameraFollow = Camera.main.GetComponent<CameraFollowComponent>();
-        if (mainCameraFollow != null)
+        for (int i=0; i<playerControllersList.Count; i++)
         {
-            mainCameraFollow.Follow(currentRouter.transform.position);
+            GameObject currentRouter = currentLayer[i];
+            PlayerControllerComponent currentPCC = playerControllersList[i].GetComponent<PlayerControllerComponent>();
+            currentPCC.SetStartRouter(currentRouter.GetComponent<RouterComponent>());
+
+            Debug.Log("Player " + currentPCC.PlayerNumber + " starting on router " + currentRouter.name);
+
+            if (i == 0)
+            {
+                mainCameraFollow = Camera.main.GetComponent<CameraFollowComponent>();
+                if (mainCameraFollow != null)
+                {
+                    Vector3 v = mainCameraFollow.transform.position;
+                    mainCameraFollow.Follow(
+                        new Vector3(
+                            currentPCC.transform.position.x,
+                            v.y,
+                            v.z
+                        )
+                    );
+                        
+                }
+            }
         }
+
+
 
     }
 
