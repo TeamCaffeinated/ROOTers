@@ -38,6 +38,18 @@ public class PlayerControllerComponent : MonoBehaviour
         return currentRouter;
     }
 
+    public Color P1_Color;
+    public Color P2_Color;
+    public Color P3_Color;
+    public Color P4_Color;
+    public Color P5_Color;
+    public Color P6_Color;
+    public Color P7_Color;
+    public Color P8_Color;
+
+    List<Color> playerColors;
+    Color currentPlayerColor;
+
     void Start()
     {
         IncreasePlayerCount();
@@ -48,6 +60,15 @@ public class PlayerControllerComponent : MonoBehaviour
         Debug.Log("player count = " + playerCount + "playerNum = " + playerNumber);
         // GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
         GameEventsHandler.current.onMoveToNextRouter += OnMoveToNextRouter;
+
+        playerColors = new List<Color> { P1_Color, P2_Color, P3_Color, P4_Color, P5_Color, P6_Color, P7_Color, P8_Color};
+        currentPlayerColor = playerColors[playerNumber-1];
+        // currentPlayerColor = new Color(1,0,1,1);
+        // Debug.Log(currentPlayerColor);
+
+        // cableHighlighterComponent.spriteRenderer.color = currentPlayerColor;
+        cableHighlighterComponent.spriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+
 
         // lineRenderer = GetComponent<LineRenderer>();
         // lineRenderer.positionCount = 2;
@@ -101,12 +122,12 @@ public class PlayerControllerComponent : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Submit_P" + playerNumber))
-        {
-            // GameEventsHandler.current.NextRouterSelected(playerNumber, putativeNextRouter);
-            OnNextRouterSelected();
-            return;
-        }
+        // if (Input.GetButtonDown("Submit_P" + playerNumber))
+        // {
+        //     // GameEventsHandler.current.NextRouterSelected(playerNumber, putativeNextRouter);
+        //     OnNextRouterSelected();
+        //     return;
+        // }
 
         float vertical = -Input.GetAxis("Vertical_P" + playerNumber);
         // Debug.Log("got vertical_P" + playerNumber + " " + vertical);

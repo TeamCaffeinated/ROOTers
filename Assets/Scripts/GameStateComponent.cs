@@ -143,9 +143,11 @@ public class GameStateComponent : MonoBehaviour
             StartPlaying();
         }
     }
+
+    public int maxPlayerNum = 4;
     void CheckIfPlayerJoin()
     {
-        if (playerControllersList.Count >= 2)
+        if (playerControllersList.Count >= maxPlayerNum)
         {
             return;
         }

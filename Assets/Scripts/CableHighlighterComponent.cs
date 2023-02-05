@@ -8,7 +8,7 @@ public class CableHighlighterComponent : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     private float interpAmount;
-    private float speed = 5.0f;
+    public float speed = 3.0f;
     void Start()
     {
         
