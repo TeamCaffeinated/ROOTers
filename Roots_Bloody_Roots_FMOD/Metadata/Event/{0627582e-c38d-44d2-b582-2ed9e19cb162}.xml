@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{0627582e-c38d-44d2-b582-2ed9e19cb162}">
 		<property name="name">
-			<value>Select</value>
+			<value>Start</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -59,7 +59,7 @@
 			<destination>{f6c67a8b-dfb0-4160-8898-655b021a9729}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{0d3dee03-a8b5-47b2-9ee0-de23ce49cf6e}</destination>
+			<destination>{0c78a911-edeb-487d-afba-477430083b75}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{69dbb72c-732f-41ba-9553-03d4f5beb76c}" />
@@ -118,6 +118,7 @@
 	<object class="MixerBusEffectChain" id="{598dd68b-dd12-46a3-8f68-578befaa2fab}">
 		<relationship name="effects">
 			<destination>{bdbe4973-4c12-4ef7-aecc-c14d3f4e6e15}</destination>
+			<destination>{ad1c6262-dff4-4731-92da-ec1f57ff59e6}</destination>
 			<destination>{0375125c-3149-4f44-9911-dc94d3171373}</destination>
 		</relationship>
 	</object>
@@ -148,6 +149,7 @@
 			<destination>{62e9e326-b99a-4549-a64d-048141719264}</destination>
 		</relationship>
 	</object>
+	<object class="Sidechain" id="{ad1c6262-dff4-4731-92da-ec1f57ff59e6}" />
 	<object class="MixerBusFader" id="{0375125c-3149-4f44-9911-dc94d3171373}" />
 	<object class="RandomizerModulator" id="{95bdd850-edf8-4fad-bcc9-5c00fb09b75b}">
 		<property name="nameOfPropertyBeingModulated">
