@@ -12,7 +12,6 @@ public class PlayerControllerComponent : MonoBehaviour
     private RouterComponent currentRouter;
 
     public float health = 1.0f;
-    public GameObject roundComponent;
 
     // public LineRenderer lineRenderer;
 
@@ -36,7 +35,6 @@ public class PlayerControllerComponent : MonoBehaviour
         // GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
         GameEventsHandler.current.onMoveToNextRouter += OnMoveToNextRouter;
 
-        roundComponent.GetComponent<RoundEndComponent>().registerPlayer(this);
         // lineRenderer = GetComponent<LineRenderer>();
         // lineRenderer.positionCount = 2;
     }
@@ -84,7 +82,7 @@ public class PlayerControllerComponent : MonoBehaviour
         }
 
         float vertical = Input.GetAxis("Vertical_P" + playerNumber);
-        Debug.Log("got vertical_P" + playerNumber + " " + vertical);
+        // Debug.Log("got vertical_P" + playerNumber + " " + vertical);
         if (vertical > 0)
         {
             putativeNextRouterIndex = (int)Mathf.Min(putativeNextRouterIndex+1, currentRouter.getOutgoing().Count-1);

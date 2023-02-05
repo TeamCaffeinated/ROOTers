@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoundEndComponent : MonoBehaviour
 {
-    List<PlayerControllerComponent> registeredPlayers;
+    List<PlayerControllerComponent> registeredPlayers = new List<PlayerControllerComponent>();
 
     public void registerPlayer(PlayerControllerComponent player) {
         registeredPlayers.Add(player);
@@ -17,6 +17,8 @@ public class RoundEndComponent : MonoBehaviour
             routerToPlayers[currentRounter].Add(player);
         }
 
+        Debug.Log("Round end");
+
         foreach (KeyValuePair<RouterComponent, List<PlayerControllerComponent>> entry in routerToPlayers) {
             float sumHealthAndBonus = entry.Key.getBonus();
             foreach(PlayerControllerComponent player in entry.Value) {
@@ -24,6 +26,9 @@ public class RoundEndComponent : MonoBehaviour
             }
 
             float newHealth = sumHealthAndBonus / entry.Value.Count;
+            
+            Debug.Log(newHealth);
+            
             foreach(PlayerControllerComponent player in entry.Value) {
                 player.health = newHealth;
             }

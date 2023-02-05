@@ -36,6 +36,9 @@ public class GameStateComponent : MonoBehaviour
 
     public GameObject countdownText;
     public Canvas waitingRoomCanvas;
+
+    public GameObject roundComponent;
+
     private List<GameObject> playerControllersList;
 
     void Start()
@@ -88,8 +91,11 @@ public class GameStateComponent : MonoBehaviour
                 graphGenerator.getLayer(
                     currentLayerIndex
                 )[0].transform.position.x // ugly temp thing // need to do checks + abstractions for layer
-                );
+            );
             waitedSec = 0;
+
+            // Update health
+            roundComponent.GetComponent<RoundEndComponent>().onRoundEnd();
         }
 
     }
@@ -119,10 +125,14 @@ public class GameStateComponent : MonoBehaviour
             return;
         }
 
+        GameObject newPlayer = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity);
         playerControllersList.Add(
-            Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity)
+            newPlayer
         );
 
+        roundComponent.GetComponent<RoundEndComponent>().registerPlayer(
+            newPlayer.GetComponent<PlayerControllerComponent>()
+        );
         // TODO properly
     }
 
