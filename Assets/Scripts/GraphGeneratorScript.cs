@@ -135,6 +135,11 @@ public class GraphGeneratorScript : MonoBehaviour
         
     }
 
+    public int getLayersCount()
+    {
+        // TODO check index is valid
+        return layers.Count;
+    }
     public List<GameObject> getLayer(int i)
     {
         // TODO check index is valid

@@ -26,7 +26,8 @@ public class PlayerControllerComponent : MonoBehaviour
         IncreasePlayerCount();
         playerNumber = playerCount;
         Debug.Log("player count = " + playerCount + "playerNum = " + playerNumber);
-        GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
+        // GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
+        GameEventsHandler.current.onMoveToNextRouter += OnMoveToNextRouter;
 
         // lineRenderer = GetComponent<LineRenderer>();
         // lineRenderer.positionCount = 2;
@@ -42,6 +43,7 @@ public class PlayerControllerComponent : MonoBehaviour
 
     private int putativeNextRouterIndex = 0; // proper way, use just this
     private RouterComponent putativeNextRouter;
+    private bool nextRouterSelected = false;
     void HandleController()
     {
         if (currentRouter == null)
@@ -61,9 +63,15 @@ public class PlayerControllerComponent : MonoBehaviour
             return;
         }
 
+        if (nextRouterSelected)
+        {
+            return;
+        }
+
         if (Input.GetButtonDown("Submit_P" + playerNumber))
         {
-            GameEventsHandler.current.NextRouterSelected(playerNumber, putativeNextRouter);
+            // GameEventsHandler.current.NextRouterSelected(playerNumber, putativeNextRouter);
+            OnNextRouterSelected();
             return;
         }
 
@@ -114,29 +122,33 @@ public class PlayerControllerComponent : MonoBehaviour
         rc.PlayerMovedIn();
     }
 
-    private void OnNextRouterSelected(int pNum, RouterComponent rc)
+    // private void OnNextRouterSelected(int pNum, RouterComponent rc)
+    private void OnNextRouterSelected()
     {
-        if (pNum != playerNumber)
-        {
-            return;
-        }
 
-
-        string s = "from " + currentRouter.name + " to " + rc.name;
-        if (currentRouter.CanReach(rc)) {
+        string s = "from " + currentRouter.name + " to " + putativeNextRouter.name;
+        if (currentRouter.CanReach(putativeNextRouter)) {
             s += "CAN";
-            currentRouter.PlayerMovedOut();
-            currentRouter = rc;
-            currentRouter.PlayerMovedIn();
-            putativeNextRouterIndex = 0;
-            putativeNextRouter = null;
+
+            nextRouterSelected = true;
 
             // GameEventsHandler.current.MoveToNextRouter(playerNumber, rc.transform.position);
-            GameEventsHandler.current.MoveToNextRouter(rc.transform.position);
+            // GameEventsHandler.current.MoveToNextRouter(rc.transform.position);
         } else {
             s += "CAN'T";
         }
         Debug.Log(s);
+    }
+
+    private void OnMoveToNextRouter(float y_coord)
+    {
+        currentRouter.PlayerMovedOut();
+        currentRouter = putativeNextRouter;
+        currentRouter.PlayerMovedIn();
+
+        nextRouterSelected = false;
+        putativeNextRouterIndex = 0;
+        putativeNextRouter = null;
     }
 
 }

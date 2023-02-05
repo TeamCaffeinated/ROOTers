@@ -29,10 +29,10 @@ public class GameStateComponent : MonoBehaviour
 
     CameraFollowComponent mainCameraFollow;
 
-    public State currentState;
+    private State currentState;
     public State CurrentState { get {return currentState; }}
 
-    List<GameObject> currentLayer;
+    private int currentLayerIndex = 0;
 
     public GameObject countdownText;
     public Canvas waitingRoomCanvas;
@@ -47,31 +47,16 @@ public class GameStateComponent : MonoBehaviour
 
 
         OnJoinRoom();
-
-
-        //public
-        // var countdownText = GetComponent<Canvas>().GetComponent("CountdownText"); // as HingeJoint;
-
-        // Canvas.FindObjectOfType<Button
-
-        // public GameObject fooText;
-        // and in the inspector drag the text into the slot. Then put
-
-        // Text footext = fooText.GetComponent<Text>();
-        // fooText.text = "Change the text";
-        // print(countdownText.GetComponent<TMP_Text>());
-        // print(countdownText.GetType());
     }
     
 
-    // Update is called once per frame
     void Update()
     {
-        // if (currentState == State.PLAYING)
-        // {
-        //     PlayLoop();
-        //     return;
-        // }
+        if (currentState == State.PLAYING)
+        {
+            PlayLoop();
+            return;
+        }
 
         // if (CurrentState == State.JOIN_ROOM)
         // {
@@ -91,9 +76,24 @@ public class GameStateComponent : MonoBehaviour
         }
     }
 
-    // private void PlayLoop()
-    // {
-    // }
+    public const float secToWaitBeforeMove = 3;
+    private float waitedSec = 0;
+    private void PlayLoop()
+    {
+        waitedSec += Time.deltaTime;
+        if (waitedSec >= secToWaitBeforeMove)
+        {
+            currentLayerIndex = (int)Mathf.Min(currentLayerIndex+1, graphGenerator.getLayersCount() - 1);
+            GameEventsHandler.current.MoveToNextRouter(
+                graphGenerator.getLayer(
+                    currentLayerIndex
+                )[0].transform.position.x // ugly temp thing // need to do checks + abstractions for layer
+                );
+            waitedSec = 0;
+        }
+
+    }
+
     static public float maxWaitingSec = 60 * 3;
     private float waitingTimeRemaining = maxWaitingSec;
     private void WaitingRoomLoop()
@@ -155,17 +155,11 @@ public class GameStateComponent : MonoBehaviour
 
         waitingRoomCanvas.enabled = false;
 
-        // Generate Level
         graphGenerator.generateInitialLayers();
-
-        // Assign randomly one router to this player
-        // probably need to change with multyplayer, not random but sorted with player id
-        currentLayer = graphGenerator.getLayer(0);
-        // currentRouter = currentLayer[Random.Range(0, currentLayer.Count)];
 
         for (int i=0; i<playerControllersList.Count; i++)
         {
-            GameObject currentRouter = currentLayer[i];
+            GameObject currentRouter = graphGenerator.getLayer(0)[i];
             PlayerControllerComponent currentPCC = playerControllersList[i].GetComponent<PlayerControllerComponent>();
             currentPCC.SetStartRouter(currentRouter.GetComponent<RouterComponent>());
 
@@ -177,13 +171,7 @@ public class GameStateComponent : MonoBehaviour
                 if (mainCameraFollow != null)
                 {
                     Vector3 v = mainCameraFollow.transform.position;
-                    mainCameraFollow.Follow(
-                        new Vector3(
-                            currentPCC.transform.position.x,
-                            v.y,
-                            v.z
-                        )
-                    );
+                    mainCameraFollow.Follow(currentPCC.transform.position.x);
                         
                 }
             }
