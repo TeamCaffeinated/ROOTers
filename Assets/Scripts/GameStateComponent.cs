@@ -77,6 +77,7 @@ public class GameStateComponent : MonoBehaviour
         if (Input.GetButton("Submit"))
         {
             StartPlaying();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Sounds/Start");
         }
 
 

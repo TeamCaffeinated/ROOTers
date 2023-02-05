@@ -138,11 +138,20 @@
 	</object>
 	<object class="MixerBusPanner" id="{e0ecd02a-f54d-4d65-b344-09634100a0cc}" />
 	<object class="MultibandEqEffect" id="{6d5370d6-0df3-4aec-bb4b-14b8af85b04b}">
+		<property name="filterTypeB">
+			<value>9</value>
+		</property>
 		<property name="frequencyA">
-			<value>4462.32178</value>
+			<value>5721.8877</value>
+		</property>
+		<property name="frequencyB">
+			<value>480</value>
 		</property>
 		<property name="qualityA">
-			<value>0.929931104</value>
+			<value>0.602344871</value>
+		</property>
+		<property name="gainB">
+			<value>-9</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{f3f2e620-8840-47ad-8b4e-42d7410a5bc6}</destination>

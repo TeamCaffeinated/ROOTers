@@ -330,6 +330,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{8b280d1e-9849-4835-a0f4-bf9653645fc4}">
+		<property name="volume">
+			<value>-12</value>
+		</property>
 		<property name="name">
 			<value>Ear Candy</value>
 		</property>
@@ -409,10 +412,10 @@
 	</object>
 	<object class="LoopRegion" id="{f45d63eb-94c5-4581-9ce3-834132363386}">
 		<property name="position">
-			<value>50.935000000000002</value>
+			<value>50.916000000000004</value>
 		</property>
 		<property name="length">
-			<value>5.6457708333333301</value>
+			<value>5.6647708333333284</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{9cbf64ea-e24d-4c2d-ba39-c03e6581a242}</destination>
