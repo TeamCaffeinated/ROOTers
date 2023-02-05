@@ -17,6 +17,8 @@ public class PlayerControllerComponent : MonoBehaviour
     public int PlayerNumber{ get {return playerNumber;} }
     private RouterComponent currentRouter;
 
+    public CableHighlighterComponent cableHighlighterComponent;
+
     public float health = 1.0f;
 
     // public LineRenderer lineRenderer;
@@ -115,33 +117,8 @@ public class PlayerControllerComponent : MonoBehaviour
         }
         putativeNextRouter = currentRouter.getOutgoing()[putativeNextRouterIndex].GetComponent<RouterComponent>();
 
-        // lineRenderer.SetPosition(0, currentRouter.transform.position); 
-        // lineRenderer.SetPosition(1, putativeNextRouter.transform.position);
-        //For creating line renderer object
-        // LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-        // lineRenderer.startColor = Color.yellow;
-        // lineRenderer.endColor = Color.yellow;
-        // lineRenderer.startWidth = 0.03f;
-        // lineRenderer.endWidth = 0.03f;
-        // lineRenderer.positionCount = 2;
-        // lineRenderer.useWorldSpace = true;    
-
-
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
-
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.red;
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-
-        Vector3 zOffset = new Vector3(0,0,1);
-
-        // lineRenderer.positionCount += 2;
-        lineRenderer.positionCount = 2;
-
-        lineRenderer.SetPosition(0, currentRouter.transform.position      - zOffset); 
-        lineRenderer.SetPosition(1, putativeNextRouter.transform.position - zOffset);
-
+        cableHighlighterComponent.startPoint = currentRouter.transform;
+        cableHighlighterComponent.endPoint   = putativeNextRouter.transform;
     }
 
     public void SetStartRouter(RouterComponent rc)
