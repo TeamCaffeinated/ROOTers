@@ -10,6 +10,8 @@ public enum State: uint
     PLAYING,
     WAITING_ROOM,
     JOIN_ROOM,
+
+    WINNER,
     //PAUSE
 };
 
@@ -35,9 +37,10 @@ public class GameStateComponent : MonoBehaviour
     private int currentLayerIndex = 0;
 
     public GameObject countdownText;
-    public Canvas waitingRoomCanvas;
+    public Canvas waitingRoomCanvas, playingUICanvas, winnerCanvas;
 
-    public GameObject roundComponent;
+    // public GameObject roundComponent;
+    private RoundEndComponent roundEndComponent;
 
     private List<GameObject> playerControllersList;
 
@@ -45,9 +48,15 @@ public class GameStateComponent : MonoBehaviour
     {
         currentState = State.JOIN_ROOM;
         waitingRoomCanvas.enabled = false;
+        playingUICanvas.enabled   = false;
+        winnerCanvas.enabled      = false;
 
         playerControllersList = new List<GameObject>();
 
+        roundEndComponent = GetComponent<RoundEndComponent>();
+
+
+        GameEventsHandler.current.onPlayerDeath += OnPlayerDeath;
 
         OnJoinRoom();
     }
@@ -95,9 +104,26 @@ public class GameStateComponent : MonoBehaviour
             waitedSec = 0;
 
             // Update health
-            roundComponent.GetComponent<RoundEndComponent>().onRoundEnd();
+            // roundComponent.GetComponent<RoundEndComponent>().onRoundEnd();
+            roundEndComponent.onRoundEnd();
+            ShowHealth();
         }
 
+    }
+
+    private void ShowHealth()
+    {
+        for (int i=0; i< playerControllersList.Count; i++) 
+        {
+            string targetName = "P" + (i+1) + " Life";
+            foreach(var healthDisplayText in playingUICanvas.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if(healthDisplayText.name == targetName)
+                {
+                    healthDisplayText.text = "P" + (i+1) + ": " + playerControllersList[i].GetComponent<PlayerControllerComponent>().health;
+                }
+            }
+        }
     }
 
     static public float maxWaitingSec = 60 * 3;
@@ -130,11 +156,51 @@ public class GameStateComponent : MonoBehaviour
             newPlayer
         );
 
-        roundComponent.GetComponent<RoundEndComponent>().registerPlayer(
+        roundEndComponent.registerPlayer(
             newPlayer.GetComponent<PlayerControllerComponent>()
         );
         // TODO properly
     }
+
+    void OnPlayerDeath(int playerNum)
+    {
+        for (int i=0; i<playerControllersList.Count; i++)
+        {
+            GameObject p = playerControllersList[i];
+            if (p.name == "P" + playerNum)
+            {
+                roundEndComponent.removePlayer(
+                    p.GetComponent<PlayerControllerComponent>()
+                );
+                playerControllersList.RemoveAt(i);
+                Destroy(p);
+                i--; // to reconsider this elem
+            }
+        }
+
+        if (playerControllersList.Count == 1)
+        {
+            GameObject p = playerControllersList[0];
+            ProclaimWinner(p);
+        }
+    }
+
+    private void ProclaimWinner(GameObject p)
+    {
+        if (currentState == State.PLAYING)
+        {
+            // TODO "you win" screen
+            Debug.Log("Player " + p.name + " WON!!");
+            currentState = State.WINNER;
+
+            waitingRoomCanvas.enabled = false;
+            playingUICanvas.enabled   = false;
+            winnerCanvas.enabled      = true;
+
+            GameEventsHandler.current.OnPlayerWin(p.GetComponent<PlayerControllerComponent>().PlayerNumber);
+        }
+    }
+    
 
     void DisplayTime(float timeToDisplay)
     {
@@ -153,6 +219,7 @@ public class GameStateComponent : MonoBehaviour
     }
     public void StartPlaying()
     {
+        // TODO add start animation
         // TODO hanlde "Play!" button signal
         if (currentState == State.PLAYING) {
             Debug.LogWarning("already playing!");
@@ -164,6 +231,8 @@ public class GameStateComponent : MonoBehaviour
         currentState = State.PLAYING;
 
         waitingRoomCanvas.enabled = false;
+        playingUICanvas.enabled   = true;
+        winnerCanvas.enabled      = false;
 
         graphGenerator.generateInitialLayers();
 

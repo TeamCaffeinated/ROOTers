@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class RoundEndComponent : MonoBehaviour
 {
+    // TODO better use PlayerMoveIN and PlayerMoveOUT method in router
+    // each router keeps a list with its own player, we'll might need anyway it for visualization
+
     List<PlayerControllerComponent> registeredPlayers = new List<PlayerControllerComponent>();
 
     public void registerPlayer(PlayerControllerComponent player) {
         registeredPlayers.Add(player);
+    }
+    public void removePlayer(PlayerControllerComponent player) {
+        registeredPlayers.Remove(player);
     }
 
     public void onRoundEnd() {
@@ -23,6 +29,7 @@ public class RoundEndComponent : MonoBehaviour
             float sumHealthAndBonus = entry.Key.getBonus();
             foreach(PlayerControllerComponent player in entry.Value) {
                 sumHealthAndBonus += player.health;
+                Debug.Log(player.name + " entered " + entry.Key.name + " with health " + player.health);
             }
 
             float newHealth = sumHealthAndBonus / entry.Value.Count;
@@ -31,6 +38,7 @@ public class RoundEndComponent : MonoBehaviour
             
             foreach(PlayerControllerComponent player in entry.Value) {
                 player.health = newHealth;
+                Debug.Log(player.name + " will exit " + entry.Key.name + " with health " + player.health);
             }
         }
     }

@@ -19,4 +19,22 @@ public class GameEventsHandler : MonoBehaviour
             onMoveToNextRouter(x_coord);
         }
     }
+
+    public event Action<int> onPlayerDeath;
+    public void OnPlayerDeath(int playerNum)
+    {
+        if (onPlayerDeath != null)
+        {
+            onPlayerDeath(playerNum);
+        }
+    }
+
+    public event Action<int> onPlayerWin;
+    public void OnPlayerWin(int playerNum)
+    {
+        if (onPlayerWin != null)
+        {
+            onPlayerWin(playerNum);
+        }
+    }
 }

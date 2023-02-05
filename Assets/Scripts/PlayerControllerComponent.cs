@@ -4,9 +4,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine;
 
+enum PlayerStatus {
+    ALIVE,
+    DYING,
+    DEAD
+}
 
 public class PlayerControllerComponent : MonoBehaviour
 {
+    private PlayerStatus playerStatus = PlayerStatus.ALIVE;
     private int playerNumber;
     public int PlayerNumber{ get {return playerNumber;} }
     private RouterComponent currentRouter;
@@ -31,6 +37,9 @@ public class PlayerControllerComponent : MonoBehaviour
     {
         IncreasePlayerCount();
         playerNumber = playerCount;
+
+        name = "P" + playerNumber;
+
         Debug.Log("player count = " + playerCount + "playerNum = " + playerNumber);
         // GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
         GameEventsHandler.current.onMoveToNextRouter += OnMoveToNextRouter;
@@ -41,6 +50,17 @@ public class PlayerControllerComponent : MonoBehaviour
 
     void Update()
     {
+        if (playerStatus == PlayerStatus.DEAD)
+        {
+            return;
+        }
+
+        // if (playerStatus == PlayerStatus.DYING)
+        // {
+        //     // PlayDeathAnimation();
+        //     return;
+        // }
+
         HandleController();
     }
 
@@ -64,6 +84,8 @@ public class PlayerControllerComponent : MonoBehaviour
             if (currentRouter.getOutgoing().Count == 0)
             {
                 Debug.Log("No exiting links from router");
+                Die();
+                return;
             }
             putativeNextRouter = currentRouter.getOutgoing()[putativeNextRouterIndex].GetComponent<RouterComponent>();
             return;
@@ -151,6 +173,14 @@ public class PlayerControllerComponent : MonoBehaviour
         Debug.Log(s);
     }
 
+    private void Die()
+    {
+        // PlayDeathAnimation();
+        playerStatus = PlayerStatus.DEAD;
+        GameEventsHandler.current.OnPlayerDeath(playerNumber);
+    }
+
+    public float movementHealthCost = 0.2f;
     private void OnMoveToNextRouter(float y_coord)
     {
         currentRouter.PlayerMovedOut();
@@ -160,6 +190,11 @@ public class PlayerControllerComponent : MonoBehaviour
         nextRouterSelected = false;
         putativeNextRouterIndex = 0;
         putativeNextRouter = null;
+
+        health -= movementHealthCost;
+        if (health < movementHealthCost) {
+            Die();
+        }
     }
 
 }
