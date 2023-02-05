@@ -177,7 +177,7 @@ public class GameStateComponent : MonoBehaviour
             }
         }
 
-        if (playerControllersList.Count == 1)
+        if (playerControllersList.Count <= 0)
         {
             GameObject p = playerControllersList[0];
             ProclaimWinner(p);
