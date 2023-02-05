@@ -15,6 +15,9 @@ public class GraphGeneratorScript : MonoBehaviour
     public float xSpaceRouters, ySpaceRouters;
     public int numVisibleLayers;
 
+    public float probabilityBonus = 0.1f;
+    public float minBonus = 0.5f, maxBonus = 2.0f;
+
     public int shuffleAccuracy = 10000;
 
     public GameObject routerPrefab;
@@ -25,6 +28,13 @@ public class GraphGeneratorScript : MonoBehaviour
         float y = minY, stepY = (maxY - minY) / (numRouters - 1);
         for(int i = 0; i < numRouters; i++) {
             GameObject router = Instantiate(routerPrefab, new Vector3(x, y, 0), Quaternion.identity);
+
+            var routerComponent = router.GetComponent<RouterComponent>();
+            if(Random.Range(0.0f, 1.0f) < probabilityBonus) {
+                float generatedBonus = Random.Range(minBonus, maxBonus);
+                routerComponent.setBonus(generatedBonus);
+            }
+
             router.name = "x" + x + " y" + y;
             layer.Add(router);
             y += stepY;

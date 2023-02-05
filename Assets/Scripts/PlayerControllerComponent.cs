@@ -11,6 +11,9 @@ public class PlayerControllerComponent : MonoBehaviour
     public int PlayerNumber{ get {return playerNumber;} }
     private RouterComponent currentRouter;
 
+    public float health = 1.0f;
+    public GameObject roundComponent;
+
     // public LineRenderer lineRenderer;
 
     static int playerCount = 0;
@@ -21,6 +24,10 @@ public class PlayerControllerComponent : MonoBehaviour
     //     playerNumber = playerCount;
     // }
 
+    public RouterComponent getCurrentRouter() {
+        return currentRouter;
+    }
+
     void Start()
     {
         IncreasePlayerCount();
@@ -28,6 +35,7 @@ public class PlayerControllerComponent : MonoBehaviour
         Debug.Log("player count = " + playerCount + "playerNum = " + playerNumber);
         GameEventsHandler.current.onNextRouterSelected += OnNextRouterSelected;
 
+        roundComponent.GetComponent<RoundEndComponent>().registerPlayer(this);
         // lineRenderer = GetComponent<LineRenderer>();
         // lineRenderer.positionCount = 2;
     }

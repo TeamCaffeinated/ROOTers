@@ -63,16 +63,31 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
     public bool HasPlayer() { return hasPlayer; } // there should be a nicer way
 
     public Color withPlayerColor = new Color(0,1,1,1), defaultColor = new Color(1,1,0,1);
+    public Color withBonusColor = new Color(1,0,1,1);
+
+    public float bonus = 0;
+
+    public void setBonus(float generatedBonus) {
+        bonus = generatedBonus;
+        if(bonus > 0) {
+            spriteRenderer.color = withBonusColor;
+        }
+    }
+
+    public float getBonus() {
+        return bonus;
+    }   
+
     public void PlayerMovedIn()
     {
         hasPlayer = true;
         spriteRenderer.color = withPlayerColor;
     }
-    public void PlayerMovedOut()
-    {
+    public void PlayerMovedOut() 
+    {        
         hasPlayer = false;
+        // Ensure that defaultColor is non-bonus
         spriteRenderer.color = defaultColor;
-
     }
 
     void OnMouseDown()
