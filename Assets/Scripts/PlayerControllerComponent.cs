@@ -21,6 +21,9 @@ public class PlayerControllerComponent : MonoBehaviour
 
     public float health = 1.0f;
 
+    private bool movedDown = false;
+    private bool movedUp = false;
+
     // public LineRenderer lineRenderer;
 
     static int playerCount = 0;
@@ -105,16 +108,24 @@ public class PlayerControllerComponent : MonoBehaviour
             return;
         }
 
-        float vertical = Input.GetAxis("Vertical_P" + playerNumber);
+        float vertical = -Input.GetAxis("Vertical_P" + playerNumber);
         // Debug.Log("got vertical_P" + playerNumber + " " + vertical);
-        if (vertical > 0)
+        if (vertical > Mathf.Epsilon)
         {
-            putativeNextRouterIndex = (int)Mathf.Min(putativeNextRouterIndex+1, currentRouter.getOutgoing().Count-1);
+            if (!movedDown)
+                putativeNextRouterIndex = (int)Mathf.Min(putativeNextRouterIndex+1, currentRouter.getOutgoing().Count-1);
+            movedDown = true;
         }
-        if (vertical < 0)
+        else if (vertical < -Mathf.Epsilon)
         {
-            putativeNextRouterIndex = (int)Mathf.Max(putativeNextRouterIndex-1, 0);
+            if (!movedUp)
+                putativeNextRouterIndex = (int)Mathf.Max(putativeNextRouterIndex-1, 0);
+            movedUp = true;
+        } else {
+            movedDown = false;
+            movedUp = false;
         }
+        Debug.Log(putativeNextRouterIndex);
         putativeNextRouter = currentRouter.getOutgoing()[putativeNextRouterIndex].GetComponent<RouterComponent>();
 
         cableHighlighterComponent.startPoint = currentRouter.transform;

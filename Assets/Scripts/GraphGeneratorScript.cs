@@ -73,6 +73,8 @@ public class GraphGeneratorScript : MonoBehaviour
                     randomChoice.RemoveRange(degree, randomChoice.Count - degree);
                 }
 
+                randomChoice.Sort((x, y) => x.transform.position.y < y.transform.position.y ?  1 : -1);
+
                 foreach(var routerTo in randomChoice) {
                     addSingleLink(routerFrom, routerTo);
                 }
@@ -90,8 +92,8 @@ public class GraphGeneratorScript : MonoBehaviour
         lineObject.transform.parent = transform;
 
         var currRenderer = lineObject.GetComponent<LineRenderer>();
-        currRenderer.startWidth = 0.1f;
-        currRenderer.endWidth = 0.1f;
+        currRenderer.startWidth = 0.5f;
+        currRenderer.endWidth = 0.5f;
         currRenderer.SetPositions(new Vector3[]{
             posFrom,
             posTo,
