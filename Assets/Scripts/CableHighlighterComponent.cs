@@ -8,6 +8,7 @@ public class CableHighlighterComponent : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     private float interpAmount;
+    private float speed = 5.0f;
     void Start()
     {
         
@@ -15,7 +16,11 @@ public class CableHighlighterComponent : MonoBehaviour
 
     void Update()
     {
-        interpAmount = (interpAmount + Time.deltaTime) % 1f;
+        if (startPoint == null || endPoint == null) {
+            return;
+        }
+
+        interpAmount = (interpAmount + Time.deltaTime * speed) % 1f;
         spriteRenderer.transform.position = Vector3.Lerp(
             startPoint.position,
             endPoint.position,

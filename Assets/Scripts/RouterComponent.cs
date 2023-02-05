@@ -10,13 +10,48 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
     // public int x,y;
     // public GameObject routerPrefab;
 
-    public SpriteRenderer spriteRenderer;
+    public GameObject CilinderPrefab;
+    // public SpriteRenderer spriteRenderer;
     // public new ParticleSystem particleSystem;
 
     List<GameObject> adjOut = new List<GameObject>();
 
     public float bloopMaxScaleFactorDelta = 0.015f;
     public float bloopFrequencyFactor = 30.0f;
+
+    public int maxRouterPlayerCount = 4;
+    public void Start() {
+        InitSprite();
+    }
+    private void InitSprite() {
+        GameObject c = Instantiate(
+            CilinderPrefab,
+            transform.position,
+            // Vector3.zero,
+            Quaternion.identity
+            // transform
+            );
+        // c.transform.parent = transform;
+        // Debug.Log("RouterComponent transform.position" + transform.position);
+        // Debug.Log("c.transform.position" + c.transform.position);
+
+        Vector3 offset = c.GetComponent<Cilinder>().nextDiskPosition.transform.position;
+        for (int i=1; i<maxRouterPlayerCount; i++)
+        {
+            c = Instantiate(
+                CilinderPrefab,
+                // c.transform.position + offset,
+                offset,
+                // Vector3.zero,
+                // new Vector3(1,1,0),
+                Quaternion.identity
+                // c.GetComponent<Cilinder>().nextDiskPosition
+                );
+            offset = c.GetComponent<Cilinder>().nextDiskPosition.transform.position;
+            // c.transform.parent = transform;
+        }
+    }
+
     public void Update() {
         if (bloopAnimationRemainingTime > 0)
         {
@@ -70,7 +105,8 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
     public void setBonus(float generatedBonus) {
         bonus = generatedBonus;
         if(bonus > 0) {
-            spriteRenderer.color = withBonusColor;
+            // TODO
+            // spriteRenderer.color = withBonusColor;
         }
     }
 
@@ -81,13 +117,15 @@ public class RouterComponent : MonoBehaviour // , IPointerClickHandler
     public void PlayerMovedIn()
     {
         hasPlayer = true;
-        spriteRenderer.color = withPlayerColor;
+        // TODO
+        //  spriteRenderer.color = withPlayerColor;
     }
     public void PlayerMovedOut() 
     {        
         hasPlayer = false;
         // Ensure that defaultColor is non-bonus
-        spriteRenderer.color = defaultColor;
+        // TODO
+        // spriteRenderer.color = defaultColor;
     }
 
     void OnMouseDown()
