@@ -47,8 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7e737387ee5ec4193ac32be91fa2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diskSprite: {fileID: 4713759635888182767}
+  diskSpritesContainer: {fileID: 4423747672435008961}
   nextDiskPosition: {fileID: 6747617776057599113}
+  topOne: 0
 --- !u!1 &2105482986028599754
 GameObject:
   m_ObjectHideFlags: 0

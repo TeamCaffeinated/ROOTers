@@ -79,35 +79,43 @@ public class GraphGeneratorScript : MonoBehaviour
     }
 
     // public float linkWidth = 0.02f;
-    void renderSingleLink(Vector3 posFrom, Vector3 posTo) {
+    public GameObject cableLinkPrefab;
+    void renderSingleLink(Transform posFrom, Transform posTo) {
                         
-        // Set points
-        lineRenderer.positionCount += 2;
-        lineRenderer.SetPosition(lineRenderer.positionCount - 2, posFrom); 
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, posTo);
+        // // Set points
+        // lineRenderer.positionCount += 2;
+        // lineRenderer.SetPosition(lineRenderer.positionCount - 2, posFrom); 
+        // lineRenderer.SetPosition(lineRenderer.positionCount - 1, posTo);
+
+        GameObject cLink = Instantiate(cableLinkPrefab, Vector3.zero, Quaternion.identity);
+        cLink.GetComponent<CableLink>().StartPoint = posFrom;
+        cLink.GetComponent<CableLink>().EndPoint   = posTo;
     }
 
     void renderLinks(List<GameObject> layer) {
         foreach (var routerFrom in layer) {
             RouterComponent routerComponent = routerFrom.GetComponent<RouterComponent>();
             foreach (var routerTo in routerComponent.getOutgoing()) {
-                Vector3 posFrom = routerFrom.transform.position;
-                Vector3 posTo = routerTo.transform.position;
-
-                renderSingleLink(posFrom, posTo);
+                // Vector3 posFrom = routerFrom.transform.position;
+                // Vector3 posTo = routerTo.transform.position;
+                // renderSingleLink(posFrom, posTo);
+                renderSingleLink(
+                    routerFrom.transform,
+                    routerTo.transform
+                    );
             }
         }
     }
 
     List<List<GameObject>> layers;
 
-    public LineRenderer lineRenderer;
+    public bool genOnStart = false;
     void Start()
     {
-        // generateInitialLayers();
-        lineRenderer.positionCount = 0;
-        lineRenderer.startWidth = 0.3f;
-        lineRenderer.endWidth = 0.3f;
+        if (genOnStart)
+        {
+            generateInitialLayers();
+        }
     }
 
     public void generateInitialLayers()

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Cilinder : MonoBehaviour
 {
-    public SpriteRenderer diskSprite;
+    public GameObject diskSpritesContainer;
     public Transform nextDiskPosition;
+    public bool topOne = false;
     // Start is called before the first frame update
     void Start()
     {
