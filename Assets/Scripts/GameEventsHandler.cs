@@ -11,22 +11,12 @@ public class GameEventsHandler : MonoBehaviour
         current = this;
     }
 
-    // Used to asses if next router is reachable and move onto it
-    public event Action<int, RouterComponent> onNextRouterSelected;
-    public void NextRouterSelected(int playerNum, RouterComponent rc)
-    {
-        if (onNextRouterSelected != null)
-        {
-            onNextRouterSelected(playerNum, rc);
-        }
-    }
-
-    public event Action<Vector3> onMoveToNextRouter;
-    public void MoveToNextRouter(Vector3 routerPos)
+    public event Action<float> onMoveToNextRouter;
+    public void MoveToNextRouter(float x_coord)
     {
         if (onMoveToNextRouter != null)
         {
-            onMoveToNextRouter(routerPos);
+            onMoveToNextRouter(x_coord);
         }
     }
 }
