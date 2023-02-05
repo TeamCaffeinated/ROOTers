@@ -15,6 +15,8 @@ public class AnimatedStarterController : MonoBehaviour
     public GameObject exampleLine;
     public GameObject exampleRouter;
 
+    public Color[] playerColors;
+
     private bool hasSplit = false;
     private bool hasTurned = false;
     private float doneSpeed = 0;
@@ -31,12 +33,21 @@ public class AnimatedStarterController : MonoBehaviour
             playerLines[i] = Instantiate(exampleLine);
             playerLines[i].transform.SetParent(transform);
             playerLines[i].SetActive(true);
+            var line = playerLines[i].GetComponent<LineRenderer>();
+            var grad = new Gradient();
+            grad.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(playerColors[i], 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+
+            line.colorGradient = grad;
         }
 
         routers = new GameObject[playerCnt];
         for (int i = 0; i < playerCnt; i++) {
             routers[i] = Instantiate(exampleRouter);
             routers[i].SetActive(true);
+            routers[i].GetComponent<SpriteRenderer>().color = playerColors[i];
         }
     }
 
