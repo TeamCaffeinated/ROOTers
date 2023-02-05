@@ -22,6 +22,8 @@ public class GraphGeneratorScript : MonoBehaviour
 
     public GameObject routerPrefab;
 
+    public GameObject edgePrefab;
+
     List<GameObject> generateLayer(float x, float minY, float maxY, int numRouters) {
         List<GameObject> layer = new List<GameObject>();
     
@@ -52,27 +54,29 @@ public class GraphGeneratorScript : MonoBehaviour
         int centerIdx = 0, stepIdx = (layerTo.Count + layerFrom.Count - 1) / layerFrom.Count;
         foreach(var routerFrom in layerFrom)
         {
-            int mnIdx = Max(centerIdx - windowSize, 0);
-            int mxIdx = Min(centerIdx + windowSize, layerTo.Count - 1);
+            // int mnIdx = Max(centerIdx - windowSize, 0);
+            // int mxIdx = Min(centerIdx + windowSize, layerTo.Count - 1);
 
-            if(mnIdx <= mxIdx) {    
+            // if(mnIdx <= mxIdx) {    
                 int degree = Random.Range(minDegree, maxDegree);
-                degree = Min(degree, mxIdx - mnIdx + 1);
+                Debug.Log(degree);
+                // degree = Min(degree, mxIdx - mnIdx + 1);
                 
                 List<GameObject> randomChoice = new List<GameObject>();
-                for(int i = mnIdx; i <= mxIdx; i++) {
+                for(int i = 0; i < layerTo.Count; i++) {
                     randomChoice.Add(layerTo[i]);
                 }
 
                 randomChoice.Shuffle(shuffleAccuracy);
                 if(degree < randomChoice.Count) {
+                    Debug.Log("Here");
                     randomChoice.RemoveRange(degree, randomChoice.Count - degree);
                 }
 
                 foreach(var routerTo in randomChoice) {
                     addSingleLink(routerFrom, routerTo);
                 }
-            }
+            // }
 
             centerIdx += stepIdx;
         }
@@ -80,16 +84,21 @@ public class GraphGeneratorScript : MonoBehaviour
 
     // public float linkWidth = 0.02f;
     public GameObject cableLinkPrefab;
-    void renderSingleLink(Transform posFrom, Transform posTo) {
+    void renderSingleLink(Vector3 posFrom, Vector3 posTo) {
                         
-        // // Set points
-        // lineRenderer.positionCount += 2;
-        // lineRenderer.SetPosition(lineRenderer.positionCount - 2, posFrom); 
-        // lineRenderer.SetPosition(lineRenderer.positionCount - 1, posTo);
+        // Set points
+        var lineObject = Instantiate(edgePrefab);
+        lineObject.transform.parent = transform;
 
-        GameObject cLink = Instantiate(cableLinkPrefab, Vector3.zero, Quaternion.identity);
-        cLink.GetComponent<CableLink>().StartPoint = posFrom;
-        cLink.GetComponent<CableLink>().EndPoint   = posTo;
+        var currRenderer = lineObject.GetComponent<LineRenderer>();
+        currRenderer.startWidth = 0.1f;
+        currRenderer.endWidth = 0.1f;
+        currRenderer.SetPositions(new Vector3[]{
+            posFrom,
+            posTo,
+        });
+
+        lineRenderers.Add(currRenderer);
     }
 
     void renderLinks(List<GameObject> layer) {
@@ -100,8 +109,8 @@ public class GraphGeneratorScript : MonoBehaviour
                 // Vector3 posTo = routerTo.transform.position;
                 // renderSingleLink(posFrom, posTo);
                 renderSingleLink(
-                    routerFrom.transform,
-                    routerTo.transform
+                    routerFrom.transform.position,
+                    routerTo.transform.position
                     );
             }
         }
@@ -109,13 +118,13 @@ public class GraphGeneratorScript : MonoBehaviour
 
     List<List<GameObject>> layers;
 
-    public bool genOnStart = false;
+    public List<LineRenderer> lineRenderers;
     void Start()
     {
-        if (genOnStart)
-        {
-            generateInitialLayers();
-        }
+        // generateInitialLayers();
+        // lineRenderer.positionCount = 0;
+        // lineRenderer.startWidth = 0.3f;
+        // lineRenderer.endWidth = 0.3f;
     }
 
     public void generateInitialLayers()

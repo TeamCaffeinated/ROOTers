@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public enum State: uint
 {
     PLAYING,
@@ -88,7 +87,7 @@ public class GameStateComponent : MonoBehaviour
         }
     }
 
-    public const float secToWaitBeforeMove = 3;
+    public float secToWaitBeforeMove = 3;
     private float waitedSec = 0;
     private void PlayLoop()
     {
