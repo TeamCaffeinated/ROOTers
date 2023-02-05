@@ -119,12 +119,15 @@ public class GraphGeneratorScript : MonoBehaviour
     List<List<GameObject>> layers;
 
     public List<LineRenderer> lineRenderers;
+
+
+    public bool genOnStart = false;
     void Start()
     {
-        // generateInitialLayers();
-        // lineRenderer.positionCount = 0;
-        // lineRenderer.startWidth = 0.3f;
-        // lineRenderer.endWidth = 0.3f;
+        if (genOnStart)
+        {
+            generateInitialLayers();
+        }
     }
 
     public void generateInitialLayers()
