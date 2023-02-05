@@ -240,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &827550517
 Transform:
   m_ObjectHideFlags: 0
@@ -298,12 +298,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  - {x: 1, y: 0, z: 0}
-  - {x: 3, y: 0, z: 0}
-  - {x: 3, y: 1.5, z: 0}
-  - {x: 6, y: 1.5, z: 0}
+  - {x: 0, y: 0.05, z: 0}
+  - {x: 0.27, y: 0.05, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -459,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1246187547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,14 +468,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353eed0adafe14b859a1e729da0deeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCnt: 0
-  maxSlope: 0
+  playerCnt: 4
   verticalMargin: 0
-  splitTime: 0
-  turnTime: 0
-  firstDelta: 0
-  secondDelta: 0
-  exampleLine: {fileID: 0}
+  splitTime: 10
+  turnTime: 11
+  firstDelta: 10
+  secondDelta: 10
+  doneAcceleration: 0
+  endTime: 13.55
+  exampleLine: {fileID: 827550516}
+  exampleRouter: {fileID: 1537524720}
 --- !u!4 &1246187548
 Transform:
   m_ObjectHideFlags: 0
@@ -522,8 +520,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537524720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2, y: -0.2, z: 0}
-  m_LocalScale: {x: 0.27, y: 0.05, z: 1}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1246187548}
@@ -704,8 +702,9 @@ MonoBehaviour:
   typeFrequency: 0.1
   typeDelay: 3.5
   commandText: sudo arp-scan --interface=eth0
-  doneAcceleration: 0.001
-  postTypeDelay: 0.8
+  doneAcceleration: 15
+  postTypeDelay: 2.5
+  animatedStarter: {fileID: 1246187546}
 --- !u!114 &2007384849
 MonoBehaviour:
   m_ObjectHideFlags: 0

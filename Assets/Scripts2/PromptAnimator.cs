@@ -20,18 +20,20 @@ public class PromptAnimator : MonoBehaviour
     public string commandText;
     public float doneAcceleration;
     public float postTypeDelay;
+    public GameObject animatedStarter;
 
     // Start is called before the first frame update
     void Start()
     {
         promptText = GetComponent<TMP_Text>();
         rTransform = GetComponent<RectTransform>();
+        animatedStarter.GetComponent<AnimatedStarterController>().doneAcceleration = doneAcceleration;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - lastBlinkTimestamp > blinkFrequency && !doneTyping)
+        if (Time.time - lastBlinkTimestamp > blinkFrequency)
         {
             Blink();
         }
@@ -41,8 +43,9 @@ public class PromptAnimator : MonoBehaviour
             TypeLetter();
         }
         if (doneTyping && Time.time - lastTypeTimestamp > postTypeDelay) {
-            doneSpeed += doneAcceleration;
-            rTransform.position += new Vector3(-doneSpeed, 0, 0);
+            doneSpeed += doneAcceleration * Time.deltaTime * 46;
+            rTransform.position += new Vector3(-doneSpeed * Time.deltaTime, 0, 0);
+            animatedStarter.SetActive(true);
         }
     }
 
