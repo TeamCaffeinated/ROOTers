@@ -107,13 +107,18 @@ public class PlayerControllerComponent : MonoBehaviour
 
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
 
-        Vector3 zOffset = new Vector3(0,0,0);
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+
+        Vector3 zOffset = new Vector3(0,0,1);
 
         // lineRenderer.positionCount += 2;
         lineRenderer.positionCount = 2;
 
-        lineRenderer.SetPosition(0, currentRouter.transform.position      + zOffset); 
-        lineRenderer.SetPosition(1, putativeNextRouter.transform.position + zOffset);
+        lineRenderer.SetPosition(0, currentRouter.transform.position      - zOffset); 
+        lineRenderer.SetPosition(1, putativeNextRouter.transform.position - zOffset);
 
     }
 

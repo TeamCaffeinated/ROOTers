@@ -106,6 +106,8 @@ public class GraphGeneratorScript : MonoBehaviour
     {
         // generateInitialLayers();
         lineRenderer.positionCount = 0;
+        lineRenderer.startWidth = 0.3f;
+        lineRenderer.endWidth = 0.3f;
     }
 
     public void generateInitialLayers()
